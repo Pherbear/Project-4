@@ -3,6 +3,8 @@
 # dependencies
 /node_modules
 /.pnp
+/pb_data
+/pb_migrations
 .pnp.js
 
 # testing
