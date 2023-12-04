@@ -3,8 +3,10 @@ import PocketBase from "https://cdn.jsdelivr.net/npm/pocketbase@0.19.0/+esm";
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-const USERNAME = 'bryan.garcia.cuevas@gmail.com'
-const PASSWORD = 'realtrapshit'
+import Chat from './components/Chat';
+
+const USERNAME = 'timothyvu99@gmail.com'//'bryan.garcia.cuevas@gmail.com'
+const PASSWORD = 'tim420'
 
 const pb = new PocketBase('http://127.0.0.1:8090')
 
@@ -16,5 +18,6 @@ root.render(
   <React.StrictMode>
     <App />
     <h1>Hello, {authData.admin.email}</h1>
+    <Chat />
   </React.StrictMode>
 );
