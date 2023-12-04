@@ -1,10 +1,11 @@
 import React from "react";
 
-function App() {
+function App(props) {
+  
   return (
     <div className="App">
       <h1>
-        This is a test.
+        This is a test, the message
       </h1>
     </div>
   );
