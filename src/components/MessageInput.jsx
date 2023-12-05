@@ -10,14 +10,13 @@ const MessageInput = ({ addMessage }) => {
   const handleSendMessage = () => {
     if (newMessage.trim() !== '') {
       // Create a new message object with a placeholder sender and current timestamp
-      const message = {
+      const message_data = {
         sender: 'User', // You might replace this with the actual user information
-        content: newMessage,
-        timestamp: new Date().toLocaleTimeString(),
+        message: newMessage
       };
 
       // Pass the new message to the parent component to update the messages state
-      addMessage(message);
+      addMessage(message_data);
 
       // Clear the input field
       setNewMessage('');
