@@ -69,12 +69,9 @@ function App() {
     <div className="App">
       <h1>Hello, {authData.admin.email}</h1>
       <h1>Messages: </h1>
-      <MessageList messages={messages}/>
-      <MessageInput addMessage={addMessage}/>
-      <button onClick={clearLog}>
-        Clear Messages
-      </button>
-      <Chat />
+
+      <Chat messages={messages} addMessage={addMessage} clearLog={clearLog}/>
+
     </div>
   );
 }
