@@ -41,10 +41,21 @@ async function getUserName(userID){
   return record.name
 }
 
+async function getUsers(){
+  const records = await pb.collection('users').getFullList({
+    sort: '-created',
+  });
+
+  return records
+}
+
+
+const allUsers = await getUsers()
 
 function App() {
   
   const [messages, setMessages] = useState(load_data);
+  const [users, setUsers] = useState(allUsers)
   
   const addMessage = async (message_data) => {
     console.log(message_data)
@@ -70,8 +81,12 @@ function App() {
       <h1>Hello, {authData.admin.email}</h1>
       <h1>Messages: </h1>
 
-      <Chat messages={messages} addMessage={addMessage} clearLog={clearLog}/>
-
+      <Chat 
+        messages={messages} 
+        addMessage={addMessage} 
+        clearLog={clearLog}
+        users={users}
+      />
     </div>
   );
 }
