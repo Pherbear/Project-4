@@ -46,10 +46,9 @@ async function getAllMessages(){
   const records = await pb.collection('messages').getFullList({
     sort: '-created',
   });
-
+  
   return records
 }
-
 
 const load_data = await getAllMessages()
 
@@ -63,6 +62,15 @@ async function clearMessages(){
   ))
 }
 
+async function getUserName(userID){
+  const record = await pb.collection('users').getOne(userID, {
+    expand: 'relField1,relField2.subRelField',
+  });
+
+  return record.name
+}
+
+
 function App() {
   
   const [messages, setMessages] = useState(load_data);
@@ -72,12 +80,14 @@ function App() {
 
     const data = {
       "relation": currentUser_ID,
-      "message": message_data.message
+      "message": message_data.message,
+      "user": await getUserName(currentUser_ID)
     };
     
     const record = await pb.collection('messages').create(data);
     setMessages([...messages, record])
   };
+
 
   function clearLog() {
     clearMessages()
@@ -88,14 +98,9 @@ function App() {
     <div className="App" style={styles.container}>
       <h1>Hello, {authData.admin.email}</h1>
       <h1>Messages: </h1>
-      <div style={styles.chatContainer}> 
-        <MessageList messages={messages} data={pb}/>
-        <MessageInput addMessage={addMessage}/>
-      </div>
-      <button onClick={clearLog}>
-        Clear Messages
-      </button>
-      {/* <Chat /> */}
+
+      <Chat messages={messages} addMessage={addMessage} clearLog={clearLog}/>
+
     </div>
   );
 }

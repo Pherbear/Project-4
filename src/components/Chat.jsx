@@ -3,17 +3,13 @@ import MessageList from './MessageList';
 import MessageInput from './MessageInput';
 import UserList from './UserList';
 
-const Chat = () => {
-  const [messages, setMessages] = useState([]);
+const Chat = ({messages, addMessage, clearLog}) => {
   const [users, setUsers] = useState([
     { id: 1, name: 'User1' },
     { id: 2, name: 'User2' },
     // Add more users as needed
   ]);
 
-  const addMessage = (newMessage) => {
-    setMessages([...messages, newMessage]);
-  };
 
   return (
     <div style={styles.container}>
@@ -22,6 +18,9 @@ const Chat = () => {
         <div style={styles.chat}>
           <MessageList messages={messages} />
           <MessageInput addMessage={addMessage} />
+          <button onClick={clearLog}>
+            Clear Messages
+          </button>
         </div>
       </div>
       <div style={styles.userList}>
