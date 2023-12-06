@@ -91,12 +91,15 @@ function App() {
     );
 
     if (pb.authStore.isValid) {
-      setCurrentUser(pb.authStore.baseModel)
+      const user = pb.authStore.baseModel
+      const username = await getUserName(user.id)
+      console.log(username)
+      setCurrentUser({...pb.authStore.baseModel, username: username})
+      setUsers([...users, currentUser])
     } else {
       console.log("Login Failed!")
     }
-
-    setUsers([...users, currentUser])
+    console.log(users)
   }
 
   const addMessage = async (message_data) => {
@@ -122,7 +125,7 @@ function App() {
       {
         currentUser? 
           <div> 
-            <a>logged in</a>
+            <a>Hello, {currentUser.username} </a>
             <button onClick={logout}>Logout</button> 
           </div> 
         : <div>
@@ -131,7 +134,6 @@ function App() {
             <SignUp onSignUp={onSignUp}/>
           </div>
       }
-
       <Chat 
         messages={messages} 
         addMessage={addMessage} 
