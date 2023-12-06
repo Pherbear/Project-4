@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
 const Login = ({ onLogin }) => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
@@ -18,10 +18,10 @@ const Login = ({ onLogin }) => {
     // Perform validation (you can add more validation logic here)
 
     // Call the onLogin function with the user information
-    onLogin({ username, password });
+    onLogin({ email, password });
 
     // Clear the form fields after submission
-    setUsername('');
+    setEmail('');
     setPassword('');
   };
 
@@ -30,12 +30,12 @@ const Login = ({ onLogin }) => {
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="email">Email:</label>
           <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={handleUsernameChange}
+            type="email"
+            id="email"
+            value={email}
+            onChange={handleEmailChange}
             required
           />
         </div>

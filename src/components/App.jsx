@@ -54,12 +54,17 @@ const allUsers = await getUsers()
 function App() {
   const [currentUser, setCurrentUser] = useState(
     pb.authStore.isValid? pb.authStore.baseModel : ''
-  )
+    )
+    
+  pb.authStore.clear()
 
-  console.log(currentUser)
-
-  const [messages, setMessages] = useState(load_data);
+  const [messages, setMessages] = useState(load_data)
   const [users, setUsers] = useState(allUsers)
+  const [form, setForm] = useState(false)
+
+  function formChange(){
+    setForm(!form)
+  }
   
   async function onSignUp(login_info){
     console.log(login_info)
@@ -76,7 +81,8 @@ function App() {
     };
 
     const record = await pb.collection('users').create(data);
-    login(email, password)
+    onLogin(email, password)
+    setUsers([...users, data])
   }
 
   function logout(){
@@ -84,18 +90,14 @@ function App() {
     setCurrentUser('')
   }
 
-  async function login(email, password){
+  async function onLogin(email, password){
     const authData = await pb.collection('users').authWithPassword(
       email,
       password,
     );
 
     if (pb.authStore.isValid) {
-      const user = pb.authStore.baseModel
-      const username = await getUserName(user.id)
-      console.log(username)
-      setCurrentUser({...pb.authStore.baseModel, username: username})
-      setUsers([...users, currentUser])
+      setCurrentUser({...pb.authStore.baseModel})
     } else {
       console.log("Login Failed!")
     }
@@ -130,8 +132,18 @@ function App() {
           </div> 
         : <div>
             <a>Not Logged In</a>
-            <button onClick={login}>Login/Signup</button>
-            <SignUp onSignUp={onSignUp}/>
+            {
+              form?
+              <div>
+                <SignUp onSignUp={onSignUp}/>
+                <button onClick={formChange}>Already Have an Account?</button>
+              </div>
+              :
+              <div>
+                <Login onLogin={onLogin}/>
+                <button onClick={formChange}>Don't Have an Account?</button>
+              </div>
+            }
           </div>
       }
       <Chat 
