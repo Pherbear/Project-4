@@ -29,6 +29,17 @@ const MessageInput = ({ addMessage }) => {
     }
   };
 
+  const styles = {
+    input: {
+        justifyContent: 'center',
+        height: '30px',
+        width: '800px'
+    },
+    button: {
+        height: '30px'
+    }
+  };
+
   return (
     <div className="message-input">
       <input
@@ -37,8 +48,9 @@ const MessageInput = ({ addMessage }) => {
         value={newMessage}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
+        style={styles.input}
       />
-      <button onClick={handleSendMessage}>Send</button>
+      <button onClick={handleSendMessage} style={styles.button}>Post</button>
     </div>
   );
 };
