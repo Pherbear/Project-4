@@ -13,6 +13,35 @@ const authData = await pb.admins.authWithPassword(USERNAME, PASSWORD)
 
 const currentUser_ID = 'aywlc8y4yt5naj9'
 
+const styles = {
+  container: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    height: '100vh',
+    backgroundColor: 'turquoise'
+  },
+  chatContainer: {
+    flex: 1,
+    padding: '20px',
+    borderRight: '1px solid #ccc',
+  },
+  header: {
+    textAlign: 'center',
+    fontSize: '24px',
+    marginBottom: '20px',
+  },
+  chat: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+  },
+  userList: {
+    width: '200px',
+    padding: '20px',
+    backgroundColor: 'hotpink'
+  },
+};
+
 async function getAllMessages(){
   const records = await pb.collection('messages').getFullList({
     sort: '-created',
@@ -55,17 +84,18 @@ function App() {
     setMessages([])
   }
 
-
   return (
-    <div className="App">
+    <div className="App" style={styles.container}>
       <h1>Hello, {authData.admin.email}</h1>
       <h1>Messages: </h1>
-      <MessageList messages={messages} data={pb}/>
-      <MessageInput addMessage={addMessage}/>
+      <div style={styles.chatContainer}> 
+        <MessageList messages={messages} data={pb}/>
+        <MessageInput addMessage={addMessage}/>
+      </div>
       <button onClick={clearLog}>
         Clear Messages
       </button>
-      <Chat />
+      {/* <Chat /> */}
     </div>
   );
 }
