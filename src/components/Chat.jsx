@@ -3,13 +3,7 @@ import MessageList from './MessageList';
 import MessageInput from './MessageInput';
 import UserList from './UserList';
 
-const Chat = ({messages, addMessage, clearLog}) => {
-  const [users, setUsers] = useState([
-    { id: 1, name: 'User1' },
-    { id: 2, name: 'User2' },
-    // Add more users as needed
-  ]);
-
+const Chat = ({messages, addMessage, clearLog, users}) => {
 
   return (
     <div style={styles.container}>
