@@ -3,14 +3,14 @@ import MessageList from './MessageList';
 import MessageInput from './MessageInput';
 import UserList from './UserList';
 
-const Chat = ({messages, addMessage, clearLog, users}) => {
+const Chat = ({messages, addMessage, clearLog, users, noLogin}) => {
 
   return (
     <div style={styles.container}>
       <div style={styles.chatContainer}>
         <h1 style={styles.header}>React Chat Room</h1>
         <div style={styles.chat}>
-          <MessageList messages={messages} />
+          <MessageList messages={messages} noLogin={noLogin}/>
           <MessageInput addMessage={addMessage} />
           <button onClick={clearLog}>
             Clear Messages

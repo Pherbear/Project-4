@@ -52,15 +52,14 @@ async function getUsers(){
 const allUsers = await getUsers()
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(
-    pb.authStore.isValid? pb.authStore.baseModel : ''
-    )
+  const [currentUser, setCurrentUser] = useState('')
     
   pb.authStore.clear()
 
   const [messages, setMessages] = useState(load_data)
   const [users, setUsers] = useState(allUsers)
   const [form, setForm] = useState(false)
+  const [noLogin, setNoLogin] = useState(false)
 
   function formChange(){
     setForm(!form)
@@ -98,6 +97,7 @@ function App() {
 
     if (pb.authStore.isValid) {
       setCurrentUser({...pb.authStore.baseModel})
+      setNoLogin(false)
     } else {
       console.log("Login Failed!")
     }
@@ -105,6 +105,11 @@ function App() {
   }
 
   const addMessage = async (message_data) => {
+    if (!currentUser){
+      setNoLogin(true)
+      return
+    }
+
     console.log(message_data)
 
     const data = {
@@ -151,6 +156,7 @@ function App() {
         addMessage={addMessage} 
         clearLog={clearLog}
         users={users}
+        noLogin={noLogin}
       />
     </div>
   );
