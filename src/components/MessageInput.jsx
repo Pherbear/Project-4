@@ -11,7 +11,6 @@ const MessageInput = ({ addMessage }) => {
     if (newMessage.trim() !== '') {
       // Create a new message object with a placeholder sender and current timestamp
       const message_data = {
-        sender: 'User', // You might replace this with the actual user information
         message: newMessage
       };
 
