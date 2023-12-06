@@ -74,7 +74,7 @@ function App() {
       <button onClick={clearLog}>
         Clear Messages
       </button>
-      {/* <Chat /> */}
+      <Chat />
     </div>
   );
 }
