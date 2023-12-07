@@ -7,17 +7,23 @@ import Chat from "./Chat";
 import Login from "./Login";
 import SignUp from "./SignUp";
 
-const USERNAME = process.env.REACT_APP_POCKETBASE_USERNAME
-const PASSWORD = process.env.REACT_APP_POCKETBASE_PASSWORD
-
 const pb = new PocketBase(`http://127.0.0.1:8090`)
-const authData = await pb.admins.authWithPassword(USERNAME, PASSWORD)
+
+async function adminAuth(){
+  const USERNAME = process.env.REACT_APP_POCKETBASE_USERNAME
+  const PASSWORD = process.env.REACT_APP_POCKETBASE_PASSWORD
+  const authData = await pb.admins.authWithPassword(USERNAME, PASSWORD)
+}
+
+//adminAuth()
 
 async function getAllMessages(){
   const records = await pb.collection('messages').getFullList({
     sort: '-created',
   });
   
+  records.reverse()
+
   return records
 }
 
@@ -52,10 +58,8 @@ async function getUsers(){
 const allUsers = await getUsers()
 
 function App() {
-  const [currentUser, setCurrentUser] = useState('')
-    
-  pb.authStore.clear()
-
+  
+  const [currentUser, setCurrentUser] = useState(pb.authStore.baseModel)  
   const [messages, setMessages] = useState(load_data)
   const [users, setUsers] = useState(allUsers)
   const [form, setForm] = useState(false)
@@ -67,7 +71,6 @@ function App() {
   
   async function onSignUp(login_info){
     console.log(login_info)
-
     const {name, username, password, email} = login_info
 
     const data = {
@@ -80,7 +83,7 @@ function App() {
     };
 
     const record = await pb.collection('users').create(data);
-    onLogin(email, password)
+    onLogin({email, password})
     setUsers([...users, data])
   }
 
@@ -89,14 +92,15 @@ function App() {
     setCurrentUser('')
   }
 
-  async function onLogin(email, password){
+  async function onLogin({email, password}){
+
     const authData = await pb.collection('users').authWithPassword(
       email,
       password,
     );
 
     if (pb.authStore.isValid) {
-      setCurrentUser({...pb.authStore.baseModel})
+      setCurrentUser(pb.authStore.baseModel)
       setNoLogin(false)
     } else {
       console.log("Login Failed!")
@@ -104,13 +108,24 @@ function App() {
     console.log(users)
   }
 
+  pb.collection('messages').subscribe('*', function (e) {
+
+
+    if(currentUser && e.action === 'create'){
+      if(currentUser.id != e.record.relation){
+        setMessages([...messages, e.record])
+      }
+    }
+    // if (currentUser.id != e.record.relation) {
+    //   addMessage(e.record)
+    // }
+  })
+
   const addMessage = async (message_data) => {
     if (!currentUser){
       setNoLogin(true)
       return
     }
-
-    console.log(message_data)
 
     const data = {
       "relation": currentUser.id,

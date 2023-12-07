@@ -3,6 +3,17 @@ import React from 'react';
 const Message = ({ message_data }) => {
   const { message, created, user } = message_data;
 
+  let date = new Date(created)
+  let options = {
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric', 
+    hour: '2-digit', 
+    minute: '2-digit',
+    hour12: true
+  }
+  let formattedDate = date.toLocaleString('en-US', options)
+
   return (
     <div style={styles.messageContainer}>
       <div style={styles.message}>
@@ -10,7 +21,7 @@ const Message = ({ message_data }) => {
           <strong>{user}</strong>: {message}   
         </p>
       </div>
-        {<p style={styles.timestamp}>{created}</p>}
+        {<p style={styles.timestamp}>{formattedDate}</p>}
       </div>
   );
   }
