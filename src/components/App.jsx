@@ -6,6 +6,7 @@ import MessageInput from './MessageInput';
 import Chat from "./Chat";
 import Login from "./Login";
 import SignUp from "./SignUp";
+import Form from "./Form";
 
 const pb = new PocketBase(`http://127.0.0.1:8090`)
 
@@ -145,28 +146,14 @@ function App() {
 
   return (
     <div className="App">
-      {
-        currentUser? 
-          <div> 
-            <a>Hello, {currentUser.username} </a>
-            <button onClick={logout}>Logout</button> 
-          </div> 
-        : <div>
-            <a>Not Logged In</a>
-            {
-              form?
-              <div>
-                <SignUp onSignUp={onSignUp}/>
-                <button onClick={formChange}>Already Have an Account?</button>
-              </div>
-              :
-              <div>
-                <Login onLogin={onLogin}/>
-                <button onClick={formChange}>Don't Have an Account?</button>
-              </div>
-            }
-          </div>
-      }
+      <Form
+        currentUser={currentUser}
+        onSignUp={onSignUp}
+        onLogin={onLogin}
+        onLogout={logout}
+        onFormChange={formChange}
+        form={form}
+      />
       <Chat 
         messages={messages} 
         addMessage={addMessage} 
