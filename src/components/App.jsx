@@ -59,11 +59,13 @@ const allUsers = await getUsers()
 
 function App() {
   
-  const [currentUser, setCurrentUser] = useState(pb.authStore.baseModel)  
+  const [currentUser, setCurrentUser] = useState()  
   const [messages, setMessages] = useState(load_data)
   const [users, setUsers] = useState(allUsers)
   const [form, setForm] = useState(false)
   const [noLogin, setNoLogin] = useState(false)
+
+  console.log(pb.authStore)
 
   function formChange(){
     setForm(!form)
@@ -93,12 +95,11 @@ function App() {
   }
 
   async function onLogin({email, password}){
-
+    console.log("logging in")
     const authData = await pb.collection('users').authWithPassword(
       email,
       password,
     );
-
     if (pb.authStore.isValid) {
       setCurrentUser(pb.authStore.baseModel)
       setNoLogin(false)
@@ -110,15 +111,15 @@ function App() {
 
   pb.collection('messages').subscribe('*', function (e) {
 
+    if(pb.authStore.baseToken == ''){
+      setMessages([...messages, e.record])
+    }
 
     if(currentUser && e.action === 'create'){
       if(currentUser.id != e.record.relation){
         setMessages([...messages, e.record])
       }
     }
-    // if (currentUser.id != e.record.relation) {
-    //   addMessage(e.record)
-    // }
   })
 
   const addMessage = async (message_data) => {
