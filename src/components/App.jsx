@@ -7,6 +7,8 @@ import Chat from "./Chat";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import Form from "./Form";
+import Header from "./Header";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 const pb = new PocketBase(`http://127.0.0.1:8090`)
 
@@ -65,11 +67,16 @@ function App() {
   const [users, setUsers] = useState(allUsers)
   const [form, setForm] = useState(false)
   const [noLogin, setNoLogin] = useState(false)
+  const [home, setHome] = useState(true)
 
   console.log(pb.authStore)
 
   function formChange(){
     setForm(!form)
+  }
+
+  function changeHome(){
+    setHome(!home)
   }
   
   async function onSignUp(login_info){
@@ -146,21 +153,35 @@ function App() {
 
   return (
     <div className="App">
-      <Form
+      <Header 
+        changeHome={changeHome}
+        home={home}
         currentUser={currentUser}
-        onSignUp={onSignUp}
-        onLogin={onLogin}
-        onLogout={logout}
-        onFormChange={formChange}
-        form={form}
       />
-      <Chat 
-        messages={messages} 
-        addMessage={addMessage} 
-        clearLog={clearLog}
-        users={users}
-        noLogin={noLogin}
-      />
+      {
+        currentUser?
+        <a>Hello, {currentUser.username} </a>
+        : <>Not Logged In</>
+      }
+      {
+        home? 
+        <Chat 
+          messages={messages} 
+          addMessage={addMessage} 
+          clearLog={clearLog}
+          users={users}
+          noLogin={noLogin}
+        />
+        :
+        <Form
+          currentUser={currentUser}
+          onSignUp={onSignUp}
+          onLogin={onLogin}
+          onLogout={logout}
+          onFormChange={formChange}
+          form={form}
+        />
+      }  
     </div>
   );
 }

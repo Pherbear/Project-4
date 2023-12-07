@@ -4,15 +4,13 @@ import Login from './Login'
 
 export default function Form({currentUser, onSignUp, onLogin, onLogout, onFormChange, form}) {
   return (
-    <>
+    <a className='flex'>
     {
         currentUser? 
           <div> 
-            <a>Hello, {currentUser.username} </a>
             <button onClick={onLogout}>Logout</button> 
           </div> 
         : <div>
-            <a>Not Logged In</a>
             {
               form?
               <div>
@@ -27,6 +25,6 @@ export default function Form({currentUser, onSignUp, onLogin, onLogout, onFormCh
             }
           </div>
       }
-    </>
+    </a>
   )
 }

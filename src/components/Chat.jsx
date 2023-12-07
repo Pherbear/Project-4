@@ -12,7 +12,10 @@ const Chat = ({messages, addMessage, clearLog, users, noLogin}) => {
         <div style={styles.chat}>
           <MessageList messages={messages} noLogin={noLogin}/>
           <MessageInput addMessage={addMessage} />
-          <button onClick={clearLog}>
+          <button 
+            onClick={clearLog}
+            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+            >
             Clear Messages
           </button>
         </div>

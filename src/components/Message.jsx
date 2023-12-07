@@ -18,10 +18,13 @@ const Message = ({ message_data }) => {
   return (
     <div 
       style={styles.messageContainer}
-      
+      className='h-4 bg-green-400 transform origin-bottom-right rounded-sm'
     >
-      <div style={styles.message}>
-        <p className= "text-3xl font-bold underline">
+      <div 
+        style={styles.message}
+
+        >
+        <p>
           <strong>{user}</strong>: {message}   
         </p>
       </div>

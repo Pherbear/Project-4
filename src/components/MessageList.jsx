@@ -5,7 +5,11 @@ const MessageList = ({ messages, noLogin }) => {
   return (
     <div className="message-list">
       {messages.map((message, index) => (
-        <Message key={index} message_data={message}/>
+        <Message 
+          key={index} 
+          message_data={message}
+          className="message"
+          />
       ))}
       <div>
         {noLogin? <>Error: Login Required.</>:<></>}
