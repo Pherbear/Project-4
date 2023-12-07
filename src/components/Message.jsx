@@ -1,4 +1,5 @@
 import React from 'react';
+import '../assets/main.css'
 
 const Message = ({ message_data }) => {
   const { message, created, user } = message_data;
