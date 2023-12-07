@@ -15,9 +15,12 @@ const Message = ({ message_data }) => {
   let formattedDate = date.toLocaleString('en-US', options)
 
   return (
-    <div style={styles.messageContainer}>
+    <div 
+      style={styles.messageContainer}
+      
+    >
       <div style={styles.message}>
-        <p>
+        <p className= "text-3xl font-bold underline">
           <strong>{user}</strong>: {message}   
         </p>
       </div>
