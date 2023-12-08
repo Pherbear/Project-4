@@ -11,7 +11,7 @@ const MessageList = ({ messages, noLogin }) => {
           className="message"
           />
       ))}
-      <div>
+      <div style={{color: 'red'}}>
         {noLogin? <>Error: Login Required.</>:<></>}
       </div>
     </div>

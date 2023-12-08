@@ -37,6 +37,10 @@ const MessageInput = ({ addMessage }) => {
     },
     button: {
         height: '30px'
+    },
+    input: {
+        outline:'none',
+        color: 'white'
     }
   };
 

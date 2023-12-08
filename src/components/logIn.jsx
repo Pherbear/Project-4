@@ -25,6 +25,18 @@ const Login = ({ onLogin }) => {
     setPassword('');
   };
 
+  const styles = {
+    input: {
+      border: '1px solid black',
+      width: '400px'
+    },
+    button: {
+      border: '1px solid black',
+      padding: '2px',
+      margin: '8px'
+    }
+  };
+
   return (
     <div>
       <h2>Login</h2>
@@ -32,6 +44,7 @@ const Login = ({ onLogin }) => {
         <div>
           <label htmlFor="email">Email:</label>
           <input
+            style={styles.input}
             type="email"
             id="email"
             value={email}
@@ -42,6 +55,7 @@ const Login = ({ onLogin }) => {
         <div>
           <label htmlFor="password">Password:</label>
           <input
+            style={styles.input}
             type="password"
             id="password"
             value={password}
@@ -49,7 +63,7 @@ const Login = ({ onLogin }) => {
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <button style={styles.button} type="submit">Login</button>
       </form>
     </div>
   );
