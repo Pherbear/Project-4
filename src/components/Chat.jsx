@@ -3,18 +3,19 @@ import MessageList from './MessageList';
 import MessageInput from './MessageInput';
 import UserList from './UserList';
 
-const Chat = ({messages, addMessage, clearLog, users, noLogin}) => {
+const Chat = ({messages, addMessage, clearLog, users, noLogin, setNoLoginFalse}) => {
 
   return (
     <div style={styles.container}>
       <div style={styles.chatContainer}>
-        <h1 style={styles.header}>React Chat Room</h1>
+        <h1 style={styles.header}>The Yap Yard</h1>
         <div style={styles.chat}>
-          <MessageList messages={messages} noLogin={noLogin}/>
+          <MessageList messages={messages} noLogin={noLogin} setNoLoginFalse={setNoLoginFalse}/>
           <MessageInput addMessage={addMessage} />
           <button 
             onClick={clearLog}
             className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+            style={styles.clearMessages}
             >
             Clear Messages
           </button>
@@ -47,13 +48,16 @@ const styles = {
   chat: {
     display: 'flex',
     flexDirection: 'column',
-    height: '100%',
+    height: '90%',
   },
   userList: {
-    width: '200px',
+    width: '350px',
     padding: '20px',
     backgroundColor: 'hotpink'
   },
+  clearMessages: {
+    margin: '10px'
+  }
 };
 
 export default Chat;

@@ -18,11 +18,10 @@ const Message = ({ message_data }) => {
   return (
     <div 
       style={styles.messageContainer}
-      className='h-4 bg-green-400 transform origin-bottom-right rounded-sm'
+      className='h-4 dark:bg-gray-700 dark:border-gray-700 transform origin-bottom-right rounded-sm'
     >
       <div 
         style={styles.message}
-
         >
         <p>
           <strong>{user}</strong>: {message}   
@@ -36,13 +35,21 @@ const Message = ({ message_data }) => {
     messageContainer: {
       display: 'flex',
       justifyContent: 'space-between',
-      marginBottom: '10px'
+      marginBottom: '10px',
+      borderRadius: '15px',
+      padding: '5px',
+      height: '40px',
+      paddingLeft: '15px',
+      paddingRight: '15px'
     },
-    
+    message: {
+      color: 'white'
+    },
     timestamp: {
       textAlign: 'right',
       color: '#888', 
-      fontSize: '12px' 
+      fontSize: '12px' ,
+      paddingTop: '5px'
     },
 };
 

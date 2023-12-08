@@ -2,7 +2,7 @@ import React from 'react'
 import SignUp from './SignUp'
 import Login from './Login'
 
-export default function Form({currentUser, onSignUp, onLogin, onLogout, onFormChange, form}) {
+export default function Form({currentUser, onSignUp, onLogin, onLogout, onFormChange, form, loginFail}) {
   const styles = {
     container: {
       justifyContent: 'center',
@@ -11,6 +11,11 @@ export default function Form({currentUser, onSignUp, onLogin, onLogout, onFormCh
     link: {
       color: 'blue',
       textDecorationLine: 'underline'
+    },
+    button: {
+      border: '1px solid black',
+      padding: '2px',
+      margin: '8px'
     }
   };
 
@@ -19,9 +24,15 @@ export default function Form({currentUser, onSignUp, onLogin, onLogout, onFormCh
     {
         currentUser? 
           <div> 
-            <button onClick={onLogout}>Logout</button> 
+            <button onClick={onLogout} style={styles.button}>Logout</button> 
           </div> 
         : <div>
+            {loginFail?
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Login Failed</strong>
+              </div>
+              :<></>
+              }
             {
               form?
               <div>

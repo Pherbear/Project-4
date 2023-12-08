@@ -68,6 +68,7 @@ function App() {
   const [form, setForm] = useState(false)
   const [noLogin, setNoLogin] = useState(false)
   const [home, setHome] = useState(true)
+  const [loginFail, setLoginFail] = useState(false)
 
   console.log(pb.authStore)
 
@@ -77,6 +78,10 @@ function App() {
 
   function changeHome(){
     setHome(!home)
+  }
+
+  function setNoLoginFalse(){
+    setNoLogin(false)
   }
   
   async function onSignUp(login_info){
@@ -104,17 +109,22 @@ function App() {
 
   async function onLogin({email, password}){
     console.log("logging in")
-    const authData = await pb.collection('users').authWithPassword(
-      email,
-      password,
-    );
+    try {
+      const authData = await pb.collection('users').authWithPassword(
+        email,
+        password,
+        );
+    } catch(err) {
+      console.log(err)
+      setLoginFail(true)
+    }
+
+
     if (pb.authStore.isValid) {
       setCurrentUser(pb.authStore.baseModel)
       setNoLogin(false)
-    } else {
-      console.log("Login Failed!")
+      setLoginFail(false)
     }
-    console.log(users)
   }
 
   pb.collection('messages').subscribe('*', function (e) {
@@ -158,11 +168,7 @@ function App() {
         home={home}
         currentUser={currentUser}
       />
-      {
-        currentUser?
-        <a>Hello, {currentUser.username} </a>
-        : <>Not Logged In</>
-      }
+      
       {
         home? 
         <Chat 
@@ -171,6 +177,7 @@ function App() {
           clearLog={clearLog}
           users={users}
           noLogin={noLogin}
+          setNoLoginFalse={setNoLoginFalse}
         />
         :
         <Form
@@ -180,6 +187,7 @@ function App() {
           onLogout={logout}
           onFormChange={formChange}
           form={form}
+          loginFail={loginFail}
         />
       }  
     </div>
