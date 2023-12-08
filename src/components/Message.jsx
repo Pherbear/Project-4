@@ -18,7 +18,7 @@ const Message = ({ message_data }) => {
   return (
     <div 
       style={styles.messageContainer}
-      className='h-4 dark:bg-gray-700 dark:border-gray-700 transform origin-bottom-right rounded-sm'
+      className='dark:bg-gray-700 dark:border-gray-700 transform origin-bottom-right rounded-sm'
     >
       <div 
         style={styles.message}
@@ -38,12 +38,15 @@ const Message = ({ message_data }) => {
       marginBottom: '10px',
       borderRadius: '15px',
       padding: '5px',
-      height: '40px',
+      minHeight: 'auto',
       paddingLeft: '15px',
-      paddingRight: '15px'
+      paddingRight: '15px',
+      wordWrap: 'break-word',
+      wordBreak: 'break-all'
     },
     message: {
-      color: 'white'
+      color: 'white',
+      flexWrap: 'wrap',
     },
     timestamp: {
       textAlign: 'right',

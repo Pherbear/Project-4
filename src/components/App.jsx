@@ -70,8 +70,6 @@ function App() {
   const [home, setHome] = useState(true)
   const [loginFail, setLoginFail] = useState(false)
 
-  console.log(pb.authStore)
-
   function formChange(){
     setForm(!form)
   }

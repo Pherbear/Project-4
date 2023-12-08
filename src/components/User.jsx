@@ -2,10 +2,6 @@ import React from 'react';
 import image from '../assets/default.jpg'
 
 const User = ({ user }) => {
-
-  console.log(user)
-
-
   return (
   <li className="py-3 sm:py-4">
     <div className="flex items-center space-x-4">
